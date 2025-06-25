@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import CardLogic from "../containerComponents/CardLogic";
-import GraphLogicCompoenet from "../components/GraphLogicCompoenet";
+import GraphLogicCompoenet from "../containerComponents/GraphLogicCompoenet";
 import {
   fetchCSVData,
   getYearTotal,

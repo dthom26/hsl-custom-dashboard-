@@ -1,5 +1,5 @@
 import React from "react";
-import BarChart from "./BarChart";
+import BarChart from "../components/BarChart";
 import { useState } from "react";
 
 function GraphLogicCompoenet({ title, calfunction, csvData }) {
