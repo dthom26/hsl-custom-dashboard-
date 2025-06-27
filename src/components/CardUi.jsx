@@ -14,6 +14,7 @@ function CardUi({
         <p className="card-text">{testData}</p>
       </div>
       <select
+        className="selectBtn"
         onChange={yearChangeHandler}
         name="year"
         id="year"
@@ -30,6 +31,7 @@ function CardUi({
 
       {showMonthSelector && (
         <select
+          className="selectBtn"
           onChange={handleMonthChange}
           name="month"
           id="month"

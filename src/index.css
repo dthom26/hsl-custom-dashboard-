@@ -25,12 +25,36 @@ body {
 
 }
 
-/*
 @media (max-width: 768px) {
   .main-container-for-app {
+    grid-template-areas:
+      "sidebar"
+      "card-container"
+      "graph-container";
     grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
   }
-} */
+
+  .sidebar {
+    width: 100vw;
+    min-width: 0;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid #374151;
+  }
+
+  .sidebar-inner {
+    flex-direction: row;
+    padding: 8px;
+    border-right: none;
+    border-bottom: 1px solid #374151;
+  }
+
+  .container-for-cards,
+  .container-for-graphs {
+    padding: 0.5rem;
+  }
+}
 
 
 .container-for-cards {
@@ -103,6 +127,28 @@ body {
   color: #cbd5e0;
 }
 
+.selectBtn {
+  background-color: #4a5568;
+  color: #f7fafc;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 500px) {
+  .container-for-cards {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.25rem;
+  }
+
+  .container-for-graphs {
+    padding: 0.25rem;
+  }
+}
+
 
 /* Graph styles */
 
@@ -118,6 +164,17 @@ body {
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   margin: 1rem 0;
+}
+
+.selectBtn-graph {
+  margin-top: 1rem;
+  background-color: #4a5568;
+  color: #f7fafc;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 

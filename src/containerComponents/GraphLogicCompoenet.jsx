@@ -20,6 +20,7 @@ function GraphLogicCompoenet({ title, calfunction, csvData }) {
     <div className="graph-ui-component">
       <BarChart title={title} labels={labels} data={data} />
       <select
+        className="selectBtn-graph"
         onChange={handleYearChange}
         name="year"
         id="year"
