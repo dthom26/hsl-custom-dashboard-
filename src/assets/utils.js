@@ -200,3 +200,27 @@ export function avgVisitsByDayOfTheWeek(csvData, year) {
     })
     .filter(Boolean);
 }
+
+// for the line chart. gets data for the trend line form csvData.
+export function getYearsAndTotals(csvData) {
+  if (!Array.isArray(csvData)) return 0;
+  let allYears = csvData.map((row) => row.Year); // get all years
+  // console.log(allYears);
+  allYears = allYears.filter((year) => Boolean(year));
+  const yearsSet = new Set(allYears); // make unique set of years
+  // console.log(yearsSet);
+  const years = [...yearsSet]; // turn set back to array
+  // console.log(years);
+  const yearTotals = years.map((y) => {
+    const total = Math.round(
+      csvData
+        .filter((row) => row.Year === y)
+        .map((row) => Number(row.Visits))
+        .reduce((sum, current) => sum + current, 0)
+    );
+    return { year: y, total };
+  });
+
+  // console.log(yearTotals);
+  return yearTotals;
+}

@@ -27,7 +27,7 @@ const SIDEBAR_ITEMS = [
 ];
 
 const Sidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className={`sidebar ${!isSidebarOpen ? "collapsed" : ""}`}>

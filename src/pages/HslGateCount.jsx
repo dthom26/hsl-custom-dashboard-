@@ -9,8 +9,9 @@ import {
   avgVistsByDay,
   avgVistsPerDayByMonth,
   avgVisitsByDayOfTheWeek,
+  getYearsAndTotals,
 } from "../assets/utils";
-import BarChart from "../components/BarChart";
+import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
 // Uncomment the line below to import FetchCSVData for testing purposes
 // import FetchCSVData from "../test";
 
@@ -22,6 +23,7 @@ function HslGateCount() {
   useEffect(() => {
     fetchCSVData(csvURLHslGateCount).then(setCsvData);
   }, [csvURLHslGateCount]);
+  getYearsAndTotals(csvData);
   // calling the useEffect hook to fetch the CSV data when the component mounts.
   // doing this in the HslGateCount component so that the data is available for all child components.
   // the csvData state variable will hold the parsed CSV data, which can be passed to child components like CardLogic.
@@ -58,10 +60,10 @@ function HslGateCount() {
           csvData={csvData}
           calfunction={avgVisitsByDayOfTheWeek}
         />
-        <GraphLogicCompoenet
-          title={"Example"}
+        <LineGraphLogicComponent
+          title={"Trend Line For Visits By Year"}
           csvData={csvData}
-          calfunction={avgVistsPerDayByMonth}
+          calfunction={getYearsAndTotals}
         />
       </section>
     </div>

@@ -9,6 +9,7 @@ import {
   avgVistsByDay,
   avgVistsPerDayByMonth,
   avgVisitsByDayOfTheWeek,
+  getYearsAndTotals,
 } from "../assets/utils";
 import BarChart from "../components/BarChart";
 // Uncomment the line below to import FetchCSVData for testing purposes
@@ -59,9 +60,9 @@ function MedGateCount() {
           calfunction={avgVisitsByDayOfTheWeek}
         />
         <GraphLogicCompoenet
-          title={"Example"}
+          title={"Trend Line For Visits By Year"}
           csvData={csvData}
-          calfunction={avgVistsPerDayByMonth}
+          calfunction={getYearsAndTotals}
         />
       </section>
     </div>
