@@ -59,7 +59,7 @@ function MedGateCount() {
           csvData={csvData}
           calfunction={avgVisitsByDayOfTheWeek}
         />
-        <GraphLogicCompoenet
+        <LineGraphLogicComponent
           title={"Trend Line For Visits By Year"}
           csvData={csvData}
           calfunction={getYearsAndTotals}
