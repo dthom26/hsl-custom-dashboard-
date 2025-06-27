@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import CardLogic from "../containerComponents/CardLogic";
 import GraphLogicCompoenet from "../containerComponents/GraphLogicCompoenet";
+import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
 import {
   fetchCSVData,
   getYearTotal,
