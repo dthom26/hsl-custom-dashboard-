@@ -3,6 +3,7 @@ import CardUi from "../components/CardUi";
 
 function CardLogic({ title, csvData, calfunction, selectorConfigs }) {
   const initialSelectors = {};
+  // selectorConfigs is found in the dataForComponenetsOptions file
   selectorConfigs.forEach((cfg) => {
     initialSelectors[cfg.key] = cfg.default;
   });
