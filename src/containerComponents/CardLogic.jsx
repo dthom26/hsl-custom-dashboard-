@@ -14,8 +14,6 @@ function CardLogic({ title, csvData, calfunction, selectorConfigs }) {
   };
   const value = calfunction(csvData, selectors);
 
-  // const testData = getYearTotal(csvData, selectedYear);
-  // monthlyAvgVisitsForYear(csvData, "2019");
   return (
     <>
       <CardUi
