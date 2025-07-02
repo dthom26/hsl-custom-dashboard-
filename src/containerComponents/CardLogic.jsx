@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import CardUi from "../components/CardUi";
 
-function CardLogic({ title, csvData, calfunction, showMonthSelector }) {
-  const [selectedYear, setSelectedYear] = useState("2024");
-  const [selectedMonth, setSelectedMonth] = useState("January");
+function CardLogic({ title, csvData, calfunction, selectorConfigs }) {
+  const initialSelectors = {};
+  selectorConfigs.forEach((cfg) => {
+    initialSelectors[cfg.key] = cfg.default;
+  });
+  const [selectors, setSelectors] = useState(initialSelectors);
 
-  // handler for year selection change
-  const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
+  // Handler for any selector change
+  const handleSelectorChange = (key, value) => {
+    setSelectors((prev) => ({ ...prev, [key]: value }));
   };
-  const handleMonthChange = (e) => {
-    setSelectedMonth(e.target.value);
-  };
-
-  let value = calfunction(csvData, selectedYear, selectedMonth);
+  const value = calfunction(csvData, selectors);
 
   // const testData = getYearTotal(csvData, selectedYear);
   // monthlyAvgVisitsForYear(csvData, "2019");
@@ -21,10 +20,12 @@ function CardLogic({ title, csvData, calfunction, showMonthSelector }) {
     <>
       <CardUi
         title={title}
-        testData={value}
-        yearChangeHandler={handleYearChange}
-        handleMonthChange={handleMonthChange}
-        showMonthSelector={showMonthSelector}
+        calfunctionValue={value}
+        selectors={selectorConfigs.map((cfg) => ({
+          ...cfg,
+          value: selectors[cfg.key],
+          onChange: (e) => handleSelectorChange(cfg.key, e.target.value),
+        }))}
       />
     </>
   );

@@ -22,7 +22,7 @@ export function parseCSV(csvText) {
     }
     data.push(rowObject);
   }
-  // console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
+  console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
   return data;
 }
 
@@ -48,7 +48,8 @@ export function parseCSV(csvText) {
 //       0
 //     );
 // }
-export function getYearTotal(csvData, year) {
+export function getYearTotal(csvData, selectors) {
+  const { year } = selectors; // Destructure year from selectors
   if (!Array.isArray(csvData)) return 0; // Check if csvData is an array and is not empty
   if (csvData.length === 0) return 0;
   return Math.round(
@@ -67,7 +68,8 @@ export function getYearTotal(csvData, year) {
  * @param {string} year - The year for which to calculate the average monthly visits.
  * @returns {number} The average monthly visits for the specified year, rounded to the nearest integer.
  */
-export function monthlyAvgVisitsForYear(csvData, year) {
+export function monthlyAvgVisitsForYear(csvData, selectors) {
+  const { year } = selectors; // Destructure year from selectors
   if (!Array.isArray(csvData)) return 0;
   const arryDataForselectedYear = csvData.filter(
     (row) => row.Year && row.Year.trim() === year
@@ -94,7 +96,8 @@ export function monthlyAvgVisitsForYear(csvData, year) {
  * @param {number|string} month - The month for which to calculate the average visits.
  * @returns {number} The average visits per day for the specified month and year, rounded to the nearest integer.
  */
-export function avgVistsByDay(csvData, year, month) {
+export function avgVistsByDay(csvData, selectors) {
+  const { year, month } = selectors; // Destructure year and month from selectors
   if (!Array.isArray(csvData)) return 0;
   const filteredData = csvData.filter(
     (row) =>
@@ -118,7 +121,8 @@ export function avgVistsByDay(csvData, year, month) {
  * @returns {Array<Object>} An array of objects, each containing the month and its corresponding average visits per day.
  */
 // Calculates the average visits per day for each month of a specific year from the provided CSV data.
-export function avgVistsPerDayByMonth(csvData, year) {
+export function avgVistsPerDayByMonth(csvData, selectors) {
+  const { year } = selectors; // Destructure year from selectors
   // Step 1: Return an empty array if the input data is not an array
   if (!Array.isArray(csvData)) return [];
 
@@ -177,7 +181,8 @@ export function avgVistsPerDayByMonth(csvData, year) {
 }
 
 // Fuction for getting the Avg Visits By Day of The Week
-export function avgVisitsByDayOfTheWeek(csvData, year) {
+export function avgVisitsByDayOfTheWeek(csvData, selectors) {
+  const { year } = selectors; // Destructure year from selectors
   // Step 1: Return an empty array if the input data is not an array
   if (!Array.isArray(csvData)) return [];
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -224,3 +229,7 @@ export function getYearsAndTotals(csvData) {
   // console.log(yearTotals);
   return yearTotals;
 }
+
+/**
+ * The utility functions found below will be for the Question Sheet Pages for both MED and HSL.
+ */

@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import CardLogic from "../containerComponents/CardLogic";
 import GraphLogicCompoenet from "../containerComponents/GraphLogicCompoenet";
@@ -11,6 +10,10 @@ import {
   avgVisitsByDayOfTheWeek,
   getYearsAndTotals,
 } from "../assets/utils";
+import {
+  yearAndMonthSelectors,
+  yearOnlySelector,
+} from "../assets/dataForComponentOptions";
 import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
 // Uncomment the line below to import FetchCSVData for testing purposes
 // import FetchCSVData from "../test";
@@ -23,7 +26,7 @@ function HslGateCount() {
   useEffect(() => {
     fetchCSVData(csvURLHslGateCount).then(setCsvData);
   }, [csvURLHslGateCount]);
-  getYearsAndTotals(csvData);
+  // getYearsAndTotals(csvData);
   // calling the useEffect hook to fetch the CSV data when the component mounts.
   // doing this in the HslGateCount component so that the data is available for all child components.
   // the csvData state variable will hold the parsed CSV data, which can be passed to child components like CardLogic.
@@ -35,18 +38,19 @@ function HslGateCount() {
           title={"HSL Year Total"}
           csvData={csvData}
           calfunction={getYearTotal} // pass a function as the prop so we can reuse the component with other cal functions.
+          selectorConfigs={yearOnlySelector}
         />
         <CardLogic
           title={"HSL Monthly Avg"}
           csvData={csvData}
           calfunction={monthlyAvgVisitsForYear}
+          selectorConfigs={yearOnlySelector}
         />
         <CardLogic
           title={"HSL Daily Avg"}
           csvData={csvData}
           calfunction={avgVistsByDay}
-          showMonthSelector={true} // this prop can be used to show or hide the month selector in the CardLogic component
-          // if the calfunction requires a month selector, we can pass this prop to show the month selector in the CardLogic component.
+          selectorConfigs={yearAndMonthSelectors}
         />
       </section>
       <section className="container-for-graphs">

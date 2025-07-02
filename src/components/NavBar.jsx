@@ -1,26 +1,23 @@
-import {
-  BarChart2,
-  DollarSign,
-  Menu,
-  Settings,
-  ShoppingBag,
-  ShoppingCart,
-  TrendingUp,
-  Users,
-} from "lucide-react";
+import { BarChart2, Menu, User } from "lucide-react";
 import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SIDEBAR_ITEMS = [
   {
     name: "HSL Gate Count Stats",
-    icon: ShoppingBag,
+    icon: BarChart2,
     color: "#8B5CF6",
     href: "/",
   },
   {
+    name: "HSL Question Sheet Data",
+    icon: User,
+    color: "#8B5CF6",
+    href: "/hslquestionsheet",
+  },
+  {
     name: "MED Gate Count Stats",
-    icon: Users,
+    icon: BarChart2,
     color: "#EC4899",
     href: "/medgatecount",
   },

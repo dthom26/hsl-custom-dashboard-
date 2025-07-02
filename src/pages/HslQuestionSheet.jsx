@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CardLogic from "../containerComponents/CardLogic";
 import GraphLogicCompoenet from "../containerComponents/GraphLogicCompoenet";
-import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
 import {
   fetchCSVData,
   getYearTotal,
@@ -11,42 +10,39 @@ import {
   avgVisitsByDayOfTheWeek,
   getYearsAndTotals,
 } from "../assets/utils";
-import {
-  yearAndMonthSelectors,
-  yearOnlySelector,
-} from "../assets/dataForComponentOptions";
+import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
 // Uncomment the line below to import FetchCSVData for testing purposes
 // import FetchCSVData from "../test";
 
-function MedGateCount() {
+function HslQuestionSheetPage() {
+  const csvURLHslQuestionSheetData =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWRfABt-CD3hOE4JEDfyRznx6MoRrnq1i97bN2SVd-Wu0lQ5E6YQVl3fIQ1vtin_ne2Lk_KOhFfP4t/pub?output=csv";
   const csvURLHslGateCount =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTij0JoEjrIiPPgfZAr3Xtz0vXAyr7HouEX2DTRjns2lnYeapDMwd4kGzAlYL6RJeX3txkyd98Re9vb/pub?gid=0&single=true&output=csv";
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfw9nHek7CcbfwwvafJ3lrC4FwPdAQqJ9upHuLGvdRJ3D3KFrPA9LXjQclS7UkRg0x6fAqdKV2Gxfm/pub?output=csv";
 
   const [csvData, setCsvData] = useState([]);
+
   useEffect(() => {
-    fetchCSVData(csvURLHslGateCount).then(setCsvData);
-  }, [csvURLHslGateCount]);
+    fetchCSVData(csvURLHslQuestionSheetData).then(setCsvData);
+  }, [csvURLHslQuestionSheetData]);
 
   return (
     <div className="page-container">
       <section className="container-for-cards">
         <CardLogic
-          title={"MED Year Total"}
+          title={"Category Totals By Question types"}
           csvData={csvData}
           calfunction={getYearTotal}
-          selectorConfigs={yearOnlySelector}
         />
         <CardLogic
-          title={"MED Monthly Avg"}
+          title={"Time Slot Totals"}
           csvData={csvData}
           calfunction={monthlyAvgVisitsForYear}
-          selectorConfigs={yearOnlySelector}
         />
         <CardLogic
-          title={"MED Daily Avg"}
+          title={"Most Asked Question"}
           csvData={csvData}
           calfunction={avgVistsByDay}
-          selectorConfigs={yearAndMonthSelectors}
         />
       </section>
       <section className="container-for-graphs">
@@ -69,4 +65,5 @@ function MedGateCount() {
     </div>
   );
 }
-export default MedGateCount;
+
+export default HslQuestionSheetPage;

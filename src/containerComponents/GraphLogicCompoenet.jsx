@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import BarChart from "../components/BarChart";
-import { useState } from "react";
+import { yearOptions } from "../assets/dataForComponentOptions";
 
 function GraphLogicCompoenet({ title, calfunction, csvData }) {
-  const [selectedYear, setSelectedYear] = useState("2024"); // state for selected year
-  // You can add more state variables for month or other selectors if needed.
+  const [selectedYear, setSelectedYear] = useState("2024");
 
-  // hanlder functions will be found below
+  // Build selectors object to match your calculation function's expectations
+  const selectors = { year: selectedYear };
+
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
   };
 
-  // Call the calculation function with the CSV data and selected year
-  // The calfunction is expected to return an array of objects with 'month' and 'avg' properties.
-  const resultArr = calfunction(csvData, selectedYear);
+  // Pass selectors object to calfunction
+  const resultArr = calfunction(csvData, selectors);
   const labels = resultArr.map((item) => (item.month ? item.month : item.day));
   const data = resultArr.map((item) => item.avg);
+
   return (
     <div className="graph-ui-component">
       <BarChart title={title} labels={labels} data={data} />
@@ -24,15 +25,13 @@ function GraphLogicCompoenet({ title, calfunction, csvData }) {
         onChange={handleYearChange}
         name="year"
         id="year"
-        defaultValue={"2024"}
+        value={selectedYear}
       >
-        <option value="2025">2025</option>
-        <option value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-        <option value="2019">2019</option>
+        {yearOptions.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
       </select>
     </div>
   );
