@@ -22,7 +22,7 @@ export function parseCSV(csvText) {
     }
     data.push(rowObject);
   }
-  console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
+  // console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
   return data;
 }
 
