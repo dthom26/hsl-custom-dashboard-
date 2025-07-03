@@ -15,7 +15,7 @@ function CardLogic({ title, csvData, calfunction, selectorConfigs }) {
   // This allows us to dynamically generate the options for selectors based on the data
   const [selectors, setSelectors] = useState(getInitialSelectors());
 
-  // Update selectors when options change (e.g., after csvData loads)
+  // Update selectors when options change (e.g., after csvData loads). Used copilot for the useEffect here.
   useEffect(() => {
     setSelectors(getInitialSelectors());
     // eslint-disable-next-line
@@ -28,17 +28,15 @@ function CardLogic({ title, csvData, calfunction, selectorConfigs }) {
   // Show loading if data is not loaded yet
   const isLoading = !csvData || csvData.length === 0;
   const value = isLoading ? "Loading..." : calfunction(csvData, selectors);
+  // Prepare selector props for CardUi
+  const selectorProps = selectorConfigs.map((cfg) => ({
+    ...cfg,
+    value: selectors[cfg.key],
+    onChange: (e) => handleSelectorChange(cfg.key, e.target.value),
+  }));
 
   return (
-    <CardUi
-      title={title}
-      calfunctionValue={value}
-      selectors={selectorConfigs.map((cfg) => ({
-        ...cfg,
-        value: selectors[cfg.key],
-        onChange: (e) => handleSelectorChange(cfg.key, e.target.value),
-      }))}
-    />
+    <CardUi title={title} calfunctionValue={value} selectors={selectorProps} />
   );
 }
 
