@@ -10,6 +10,7 @@ import {
   avgVisitsByDayOfTheWeek,
   getYearsAndTotals,
   getUniqueOptions,
+  getMostAskedQuestion,
 } from "../assets/utils";
 
 import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
@@ -24,8 +25,9 @@ function HslGateCount() {
 
   const [csvData, setCsvData] = useState([]);
   useEffect(() => {
-    fetchCSVData(csvURLHslGateCount).then(setCsvData);
-  }, [csvURLHslGateCount]);
+    fetchCSVData(csvURLHslQuestionSheetData).then(setCsvData);
+  }, [csvURLHslQuestionSheetData]);
+  console.log("testing", getMostAskedQuestion(csvData));
   /* calling the useEffect hook to fetch the CSV data when the component mounts.
    doing this in the HslGateCount component so that the data is available for all child components.
    the csvData state variable will hold the parsed CSV data, which can be passed to child components like CardLogic.

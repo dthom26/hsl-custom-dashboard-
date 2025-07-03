@@ -22,7 +22,7 @@ export function parseCSV(csvText) {
     }
     data.push(rowObject);
   }
-  // console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
+  console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
   return data;
 }
 
@@ -229,6 +229,7 @@ export function getYearsAndTotals(csvData) {
   // console.log(yearTotals);
   return yearTotals;
 }
+
 // Function to get unique options for a given key from the CSV data
 export function getUniqueOptions(csvData, key) {
   return [
@@ -237,6 +238,21 @@ export function getUniqueOptions(csvData, key) {
     ),
   ];
 }
+
 /**
  * The utility functions found below will be for the Question Sheet Pages for both MED and HSL.
  */
+function extractYearFromQuestionSheetDataAddYearProp(csvData) {
+  const csvDataWithYearAdded = csvData.map((row) => {
+    const testDate = row.Date;
+    const splitString = testDate.split("/");
+    const extractDate = splitString[2];
+    const addingYearPropAndValueToObject = (row.Year = extractDate);
+    return addingYearPropAndValueToObject;
+  });
+  return csvDataWithYearAdded;
+}
+export function getMostAskedQuestion(csvData, selectors) {
+  const { year, month } = selectors;
+  const updatedCsvData = extractYearFromQuestionSheetDataAddYearProp(csvData);
+}
