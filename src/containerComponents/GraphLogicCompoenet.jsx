@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BarChart from "../components/BarChart";
-import { yearOptions } from "../assets/dataForComponentOptions";
 
-function GraphLogicCompoenet({ title, calfunction, csvData }) {
-  const [selectedYear, setSelectedYear] = useState("2024");
+function GraphLogicCompoenet({ title, calfunction, csvData, yearOptions }) {
+  const [selectedYear, setSelectedYear] = useState(yearOptions[0] || "");
+
+  useEffect(() => {
+    if (yearOptions.length > 0 && !yearOptions.includes(selectedYear)) {
+      setSelectedYear(yearOptions[0]);
+    }
+  }, [yearOptions]);
 
   // Build selectors object to match your calculation function's expectations
   const selectors = { year: selectedYear };

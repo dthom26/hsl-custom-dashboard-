@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CardLogic from "../containerComponents/CardLogic";
 import GraphLogicCompoenet from "../containerComponents/GraphLogicCompoenet";
 import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
@@ -10,22 +10,47 @@ import {
   avgVistsPerDayByMonth,
   avgVisitsByDayOfTheWeek,
   getYearsAndTotals,
+  getUniqueOptions,
 } from "../assets/utils";
-import {
-  yearAndMonthSelectors,
-  yearOnlySelector,
-} from "../assets/dataForComponentOptions";
 // Uncomment the line below to import FetchCSVData for testing purposes
 // import FetchCSVData from "../test";
 
 function MedGateCount() {
-  const csvURLHslGateCount =
+  const csvURLMedGateCount =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTij0JoEjrIiPPgfZAr3Xtz0vXAyr7HouEX2DTRjns2lnYeapDMwd4kGzAlYL6RJeX3txkyd98Re9vb/pub?gid=0&single=true&output=csv";
 
   const [csvData, setCsvData] = useState([]);
   useEffect(() => {
-    fetchCSVData(csvURLHslGateCount).then(setCsvData);
-  }, [csvURLHslGateCount]);
+    fetchCSVData(csvURLMedGateCount).then(setCsvData);
+  }, [csvURLMedGateCount]);
+
+  const yearOptions = getUniqueOptions(csvData, "Year");
+  const monthOrder = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const rawMonthOptions = getUniqueOptions(csvData, "Month");
+  const monthOptions = monthOrder.filter((month) =>
+    rawMonthOptions.includes(month)
+  );
+
+  const yearOnlySelector = [
+    { key: "year", options: yearOptions, default: yearOptions[0] },
+  ];
+  const yearAndMonthSelectors = [
+    { key: "year", options: yearOptions, default: yearOptions[0] },
+    { key: "month", options: monthOptions, default: monthOptions[0] },
+  ];
 
   return (
     <div className="page-container">
@@ -54,11 +79,13 @@ function MedGateCount() {
           title={"Avg Visits Per Day By Month"}
           csvData={csvData}
           calfunction={avgVistsPerDayByMonth}
+          yearOptions={yearOptions}
         />
         <GraphLogicCompoenet
           title={"Avg Visits By Day of The Week"}
           csvData={csvData}
           calfunction={avgVisitsByDayOfTheWeek}
+          yearOptions={yearOptions}
         />
         <LineGraphLogicComponent
           title={"Trend Line For Visits By Year"}
@@ -69,4 +96,5 @@ function MedGateCount() {
     </div>
   );
 }
+
 export default MedGateCount;

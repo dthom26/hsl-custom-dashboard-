@@ -1,32 +1,44 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CardUi from "../components/CardUi";
 
 function CardLogic({ title, csvData, calfunction, selectorConfigs }) {
-  const initialSelectors = {};
-  // selectorConfigs is found in the dataForComponenetsOptions file
-  selectorConfigs.forEach((cfg) => {
-    initialSelectors[cfg.key] = cfg.default;
-  });
-  const [selectors, setSelectors] = useState(initialSelectors);
+  // Build initial selectors from configs
+  const getInitialSelectors = () => {
+    const obj = {};
+    selectorConfigs.forEach((cfg) => {
+      obj[cfg.key] =
+        cfg.options && cfg.options.length > 0 ? cfg.options[0] : "";
+    });
+    return obj;
+  };
+  // then initialize state with the initial selectors
+  // This allows us to dynamically generate the options for selectors based on the data
+  const [selectors, setSelectors] = useState(getInitialSelectors());
 
-  // Handler for any selector change
+  // Update selectors when options change (e.g., after csvData loads)
+  useEffect(() => {
+    setSelectors(getInitialSelectors());
+    // eslint-disable-next-line
+  }, [JSON.stringify(selectorConfigs.map((cfg) => cfg.options))]);
+
   const handleSelectorChange = (key, value) => {
     setSelectors((prev) => ({ ...prev, [key]: value }));
   };
-  const value = calfunction(csvData, selectors);
+
+  // Show loading if data is not loaded yet
+  const isLoading = !csvData || csvData.length === 0;
+  const value = isLoading ? "Loading..." : calfunction(csvData, selectors);
 
   return (
-    <>
-      <CardUi
-        title={title}
-        calfunctionValue={value}
-        selectors={selectorConfigs.map((cfg) => ({
-          ...cfg,
-          value: selectors[cfg.key],
-          onChange: (e) => handleSelectorChange(cfg.key, e.target.value),
-        }))}
-      />
-    </>
+    <CardUi
+      title={title}
+      calfunctionValue={value}
+      selectors={selectorConfigs.map((cfg) => ({
+        ...cfg,
+        value: selectors[cfg.key],
+        onChange: (e) => handleSelectorChange(cfg.key, e.target.value),
+      }))}
+    />
   );
 }
 

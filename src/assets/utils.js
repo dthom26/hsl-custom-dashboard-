@@ -229,7 +229,14 @@ export function getYearsAndTotals(csvData) {
   // console.log(yearTotals);
   return yearTotals;
 }
-
+// Function to get unique options for a given key from the CSV data
+export function getUniqueOptions(csvData, key) {
+  return [
+    ...new Set(
+      csvData.map((row) => row[key] && row[key].trim()).filter(Boolean)
+    ),
+  ];
+}
 /**
  * The utility functions found below will be for the Question Sheet Pages for both MED and HSL.
  */

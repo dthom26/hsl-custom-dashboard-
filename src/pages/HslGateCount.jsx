@@ -9,11 +9,9 @@ import {
   avgVistsPerDayByMonth,
   avgVisitsByDayOfTheWeek,
   getYearsAndTotals,
+  getUniqueOptions,
 } from "../assets/utils";
-import {
-  yearAndMonthSelectors,
-  yearOnlySelector,
-} from "../assets/dataForComponentOptions";
+
 import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
 // Uncomment the line below to import FetchCSVData for testing purposes
 // import FetchCSVData from "../test";
@@ -26,11 +24,40 @@ function HslGateCount() {
   useEffect(() => {
     fetchCSVData(csvURLHslGateCount).then(setCsvData);
   }, [csvURLHslGateCount]);
-  // getYearsAndTotals(csvData);
-  // calling the useEffect hook to fetch the CSV data when the component mounts.
-  // doing this in the HslGateCount component so that the data is available for all child components.
-  // the csvData state variable will hold the parsed CSV data, which can be passed to child components like CardLogic.
-  // each card can then use this data to display relevant information, such as monthly or daily averages.
+  /* calling the useEffect hook to fetch the CSV data when the component mounts.
+   doing this in the HslGateCount component so that the data is available for all child components.
+   the csvData state variable will hold the parsed CSV data, which can be passed to child components like CardLogic.
+   each card can then use this data to display relevant information, such as monthly or daily averages.
+  **/
+  const yearOptions = getUniqueOptions(csvData, "Year");
+  const monthOrder = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const rawMonthOptions = getUniqueOptions(csvData, "Month");
+  const monthOptions = monthOrder.filter((month) =>
+    rawMonthOptions.includes(month)
+  );
+  // Extracting unique year and month options from the CSV data for use in selectorsConfigs.
+  // This allows us to dynamically generate the options for year and month selectors based on the data
+  const yearOnlySelector = [
+    { key: "year", options: yearOptions, default: yearOptions[0] },
+  ];
+  const yearAndMonthSelectors = [
+    { key: "year", options: yearOptions, default: yearOptions[0] },
+    { key: "month", options: monthOptions, default: monthOptions[0] },
+  ];
   return (
     <div className="page-container">
       <section className="container-for-cards">
@@ -58,11 +85,13 @@ function HslGateCount() {
           title={"Avg Visits Per Day By Month"}
           csvData={csvData}
           calfunction={avgVistsPerDayByMonth}
+          yearOptions={yearOptions}
         />
         <GraphLogicCompoenet
           title={"Avg Visits By Day of The Week"}
           csvData={csvData}
           calfunction={avgVisitsByDayOfTheWeek}
+          yearOptions={yearOptions}
         />
         <LineGraphLogicComponent
           title={"Trend Line For Visits By Year"}
