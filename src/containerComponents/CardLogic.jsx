@@ -28,6 +28,7 @@ function CardLogic({ title, csvData, calfunction, selectorConfigs }) {
   // Show loading if data is not loaded yet
   const isLoading = !csvData || csvData.length === 0;
   const value = isLoading ? "Loading..." : calfunction(csvData, selectors);
+
   // Prepare selector props for CardUi
   const selectorProps = selectorConfigs.map((cfg) => ({
     ...cfg,
