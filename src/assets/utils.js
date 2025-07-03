@@ -242,17 +242,41 @@ export function getUniqueOptions(csvData, key) {
 /**
  * The utility functions found below will be for the Question Sheet Pages for both MED and HSL.
  */
-function extractYearFromQuestionSheetDataAddYearProp(csvData) {
-  const csvDataWithYearAdded = csvData.map((row) => {
-    const testDate = row.Date;
-    const splitString = testDate.split("/");
-    const extractDate = splitString[2];
-    const addingYearPropAndValueToObject = (row.Year = extractDate);
-    return addingYearPropAndValueToObject;
+// This function extracts the year and month from the Date field in the CSV data and adds them as new properties to each row.
+// It assumes the Date is in the format "MM/DD/YYYY" and converts the month number
+function extractYearAndMonthFromQuestionSheetDataAddProps(csvData) {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return csvData.map((row) => {
+    if (!row.Date) return row;
+    const splitString = row.Date.split("/");
+    // splitString[0] is month as "01", "02", etc.
+    const monthNumber = parseInt(splitString[0], 10); // 1-based
+    const year = splitString[2];
+    // Convert month number to month name (subtract 1 for zero-based index)
+    const month = monthNames[monthNumber - 1] || "";
+    return {
+      ...row,
+      Year: year,
+      Month: month,
+    };
   });
-  return csvDataWithYearAdded;
 }
 export function getMostAskedQuestion(csvData, selectors) {
-  const { year, month } = selectors;
-  const updatedCsvData = extractYearFromQuestionSheetDataAddYearProp(csvData);
+  // const { year, month } = selectors;
+  const updatedCsvData =
+    extractYearAndMonthFromQuestionSheetDataAddProps(csvData);
+  return updatedCsvData;
 }
