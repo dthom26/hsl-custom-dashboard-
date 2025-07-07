@@ -12,15 +12,12 @@ import {
   QuestionCountByTimeSlot,
 } from "../assets/utils";
 function HslGateCount() {
-  const csvURLHslQuestionSheetData =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWRfABt-CD3hOE4JEDfyRznx6MoRrnq1i97bN2SVd-Wu0lQ5E6YQVl3fIQ1vtin_ne2Lk_KOhFfP4t/pub?output=csv";
-
+  const csvURL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSqBBkikogtAYL30nQY8dhHGQ-Od8zjpy1WyOlSP6R1h9sCPg56P_bX2oqQAcdxnAl2GOkER6gVwkQq/pub?gid=0&single=true&output=csv";
   const [csvData, setCsvData] = useState([]);
   useEffect(() => {
-    fetchCSVData(csvURLHslQuestionSheetData)
-      .then(addYearandMonthToCsvData)
-      .then(setCsvData);
-  }, [csvURLHslQuestionSheetData]);
+    fetchCSVData(csvURL).then(addYearandMonthToCsvData).then(setCsvData);
+  }, [csvURL]);
 
   const timeSlotOptions = getUniqueOptions(csvData, "Time Slot");
   const yearOptions = getUniqueOptions(csvData, "Year");

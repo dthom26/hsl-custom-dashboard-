@@ -357,3 +357,19 @@ export function QuestionCountByDayOfTheWeek(
     return { day, count };
   });
 }
+
+export function QuestionCountByTimeSlot(csvData, selectors = { year: "2024" }) {
+  const { year } = selectors;
+  if (!Array.isArray(csvData)) return [];
+  const timeSlots = getUniqueOptions(csvData, "Time Slot");
+  return timeSlots.map((day) => {
+    const count = csvData.filter(
+      (row) =>
+        row.Year &&
+        row.Year.trim() === String(year) &&
+        row["Time Slot"] &&
+        row["Time Slot"].trim() === day
+    ).length;
+    return { day, count };
+  });
+}

@@ -21,6 +21,12 @@ const SIDEBAR_ITEMS = [
     color: "#EC4899",
     href: "/medgatecount",
   },
+  {
+    name: "MED Question Sheet Data",
+    icon: BarChart2,
+    color: "#EC4899",
+    href: "/medquestionsheet",
+  },
 ];
 
 const Sidebar = () => {
