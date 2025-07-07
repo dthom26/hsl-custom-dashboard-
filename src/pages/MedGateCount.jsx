@@ -39,17 +39,13 @@ function MedGateCount() {
     "November",
     "December",
   ];
-  const rawMonthOptions = getUniqueOptions(csvData, "Month");
-  const monthOptions = monthOrder.filter((month) =>
-    rawMonthOptions.includes(month)
-  );
 
   const yearOnlySelector = [
     { key: "year", options: yearOptions, default: yearOptions[0] },
   ];
   const yearAndMonthSelectors = [
     { key: "year", options: yearOptions, default: yearOptions[0] },
-    { key: "month", options: monthOptions, default: monthOptions[0] },
+    { key: "month", options: monthOrder, default: monthOrder[0] },
   ];
 
   return (

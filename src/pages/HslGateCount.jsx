@@ -44,19 +44,12 @@ function HslGateCount() {
     "November",
     "December",
   ];
-
-  const rawMonthOptions = getUniqueOptions(csvData, "Month");
-  const monthOptions = monthOrder.filter((month) =>
-    rawMonthOptions.includes(month)
-  );
-  // Extracting unique year and month options from the CSV data for use in selectorsConfigs.
-  // This allows us to dynamically generate the options for year and month selectors based on the data
   const yearOnlySelector = [
     { key: "year", options: yearOptions, default: yearOptions[0] },
   ];
   const yearAndMonthSelectors = [
     { key: "year", options: yearOptions, default: yearOptions[0] },
-    { key: "month", options: monthOptions, default: monthOptions[0] },
+    { key: "month", options: monthOrder, default: monthOrder[0] },
   ];
   return (
     <div className="page-container">

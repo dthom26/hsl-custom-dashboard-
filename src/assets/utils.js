@@ -15,14 +15,14 @@ export function parseCSV(csvText) {
   const headers = rows[0].split(","); // Extract headers (assumes the first row is the header row)
   const data = []; // Initialize an array to store the parsed data
   for (let i = 1; i < rows.length; i++) {
-    const rowData = rows[i].split(","); // Split the row while handling '\r'
+    const rowData = rows[i].split(",").map((h) => h.trim()); // Split the row while handling '\r'
     const rowObject = {};
     for (let j = 0; j < headers.length; j++) {
       rowObject[headers[j]] = rowData[j];
     }
     data.push(rowObject);
   }
-  console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
+  // console.log("Parsed CSV Data:", data); // Log the parsed data for debugging
   return data;
 }
 
@@ -242,9 +242,10 @@ export function getUniqueOptions(csvData, key) {
 /**
  * The utility functions found below will be for the Question Sheet Pages for both MED and HSL.
  */
+
 // This function extracts the year and month from the Date field in the CSV data and adds them as new properties to each row.
 // It assumes the Date is in the format "MM/DD/YYYY" and converts the month number
-function extractYearAndMonthFromQuestionSheetDataAddProps(csvData) {
+export function extractYearAndMonthFromQuestionSheetDataAddProps(csvData) {
   const monthNames = [
     "January",
     "February",
@@ -274,9 +275,35 @@ function extractYearAndMonthFromQuestionSheetDataAddProps(csvData) {
     };
   });
 }
-export function getMostAskedQuestion(csvData, selectors) {
-  // const { year, month } = selectors;
-  const updatedCsvData =
-    extractYearAndMonthFromQuestionSheetDataAddProps(csvData);
-  return updatedCsvData;
+
+export function getMostAskedQuestion(
+  csvData,
+  selectors = { year: "2024", month: "August" }
+) {
+  const { year, month } = selectors;
+  if (!Array.isArray(csvData) || csvData.length === 0) return 0;
+  if (!year || !month) return null;
+
+  const filterData = csvData.filter(
+    (row) => row.Year === year && row.Month === month
+  );
+
+  const categoryCounts = {};
+  filterData.forEach((row) => {
+    const category = row["Question Category"];
+    if (category) {
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    }
+  });
+
+  let maxCategory = null;
+  let maxCount = 0;
+  for (const category in categoryCounts) {
+    if (categoryCounts[category] > maxCount) {
+      maxCategory = category;
+      maxCount = categoryCounts[category];
+    }
+  }
+  if (maxCategory === null) return "No Data";
+  return `${maxCategory} ${maxCount}`;
 }
