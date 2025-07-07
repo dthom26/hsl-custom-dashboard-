@@ -14,8 +14,6 @@ import {
 } from "../assets/utils";
 
 import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
-// Uncomment the line below to import FetchCSVData for testing purposes
-// import FetchCSVData from "../test";
 
 function HslGateCount() {
   const csvURLHslQuestionSheetData =

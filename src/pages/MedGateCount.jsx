@@ -12,8 +12,6 @@ import {
   getYearsAndTotals,
   getUniqueOptions,
 } from "../assets/utils";
-// Uncomment the line below to import FetchCSVData for testing purposes
-// import FetchCSVData from "../test";
 
 function MedGateCount() {
   const csvURLMedGateCount =
