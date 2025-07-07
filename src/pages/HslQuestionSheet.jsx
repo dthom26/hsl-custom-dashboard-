@@ -9,8 +9,11 @@ import {
   avgVisitsByDayOfTheWeek,
   getYearsAndTotals,
   getUniqueOptions,
-  getMostAskedQuestion,
-  extractYearAndMonthFromQuestionSheetDataAddProps,
+  getQuestionTotalByDate,
+  addYearandMonthToCsvData,
+  getTimeSlotTotal,
+  getMostAskedQuestionOverAll,
+  QuestionCountByDayOfTheWeek,
 } from "../assets/utils";
 
 import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
@@ -22,12 +25,12 @@ function HslGateCount() {
   const [csvData, setCsvData] = useState([]);
   useEffect(() => {
     fetchCSVData(csvURLHslQuestionSheetData)
-      .then(extractYearAndMonthFromQuestionSheetDataAddProps)
+      .then(addYearandMonthToCsvData)
       .then(setCsvData);
   }, [csvURLHslQuestionSheetData]);
-  console.log(csvData);
-  console.log(getMostAskedQuestion(csvData));
+  console.log(QuestionCountByDayOfTheWeek(csvData));
 
+  const timeSlotOptions = getUniqueOptions(csvData, "Time Slot");
   const yearOptions = getUniqueOptions(csvData, "Year");
   const monthOrder = [
     "January",
@@ -43,9 +46,12 @@ function HslGateCount() {
     "November",
     "December",
   ];
-  const yearOnlySelector = [
-    { key: "year", options: yearOptions, default: yearOptions[0] },
+  const timeSlotSelector = [
+    { key: "timeSlot", options: timeSlotOptions, default: timeSlotOptions[0] },
   ];
+  // const yearOnlySelector = [
+  //   { key: "year", options: yearOptions, default: yearOptions[0] },
+  // ];
   const yearAndMonthSelectors = [
     { key: "year", options: yearOptions, default: yearOptions[0] },
     { key: "month", options: monthOrder, default: monthOrder[0] },
@@ -57,27 +63,27 @@ function HslGateCount() {
         <CardLogic
           title={"Category Totals By Question types"}
           csvData={csvData}
-          calfunction={getMostAskedQuestion} // pass a function as the prop so we can reuse the component with other cal functions.
+          calfunction={getQuestionTotalByDate} // pass a function as the prop so we can reuse the component with other cal functions.
           selectorConfigs={yearAndMonthSelectors}
         />
         <CardLogic
           title={"Time Slot Totals"}
           csvData={csvData}
-          calfunction={monthlyAvgVisitsForYear}
-          selectorConfigs={yearOnlySelector}
+          calfunction={getTimeSlotTotal}
+          selectorConfigs={timeSlotSelector}
         />
         <CardLogic
           title={"Most Asked Question"}
           csvData={csvData}
-          calfunction={avgVistsByDay}
-          selectorConfigs={yearAndMonthSelectors}
+          calfunction={getMostAskedQuestionOverAll}
+          selectorConfigs={[]}
         />
       </section>
       <section className="container-for-graphs">
         <GraphLogicCompoenet
-          title={"Avg Visits Per Day By Month"}
+          title={"Question Count By Day of The Week"}
           csvData={csvData}
-          calfunction={avgVistsPerDayByMonth}
+          calfunction={QuestionCountByDayOfTheWeek}
           yearOptions={yearOptions}
         />
         <GraphLogicCompoenet

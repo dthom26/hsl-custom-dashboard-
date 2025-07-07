@@ -20,7 +20,9 @@ function GraphLogicCompoenet({ title, calfunction, csvData, yearOptions }) {
   // Pass selectors object to calfunction
   const resultArr = calfunction(csvData, selectors);
   const labels = resultArr.map((item) => (item.month ? item.month : item.day));
-  const data = resultArr.map((item) => item.avg);
+  const data = resultArr.map((item) =>
+    item.count !== undefined ? item.count : item.avg
+  );
 
   return (
     <div className="graph-ui-component">

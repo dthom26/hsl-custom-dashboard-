@@ -1,4 +1,5 @@
 import axios from "axios";
+import { time } from "framer-motion";
 // This utility function fetches CSV data from a given URL and parses it into an array of objects.
 /**
  * Fetches CSV data from a given URL and parses it into an array of objects.
@@ -245,7 +246,7 @@ export function getUniqueOptions(csvData, key) {
 
 // This function extracts the year and month from the Date field in the CSV data and adds them as new properties to each row.
 // It assumes the Date is in the format "MM/DD/YYYY" and converts the month number
-export function extractYearAndMonthFromQuestionSheetDataAddProps(csvData) {
+export function addYearandMonthToCsvData(csvData) {
   const monthNames = [
     "January",
     "February",
@@ -276,7 +277,7 @@ export function extractYearAndMonthFromQuestionSheetDataAddProps(csvData) {
   });
 }
 
-export function getMostAskedQuestion(
+export function getQuestionTotalByDate(
   csvData,
   selectors = { year: "2024", month: "August" }
 ) {
@@ -306,4 +307,53 @@ export function getMostAskedQuestion(
   }
   if (maxCategory === null) return "No Data";
   return `${maxCategory} ${maxCount}`;
+}
+
+export function getTimeSlotTotal(csvData, selectors) {
+  if (!Array.isArray(csvData)) return 0;
+  const { timeSlot } = selectors;
+  const count = csvData.filter((row) => row["Time Slot"] === timeSlot).length;
+  return count;
+}
+
+export function getMostAskedQuestionOverAll(csvData) {
+  const categoryCounts = {};
+  csvData.forEach((row) => {
+    const category = row["Question Category"];
+    if (category) {
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    }
+  });
+
+  let maxCategory = null;
+  let maxCount = 0;
+  for (const category in categoryCounts) {
+    if (categoryCounts[category] > maxCount) {
+      maxCategory = category;
+      maxCount = categoryCounts[category];
+    }
+  }
+  if (maxCategory === null) return "No Data";
+  return `${maxCategory} ${maxCount}`;
+}
+
+export function QuestionCountByDayOfTheWeek(
+  csvData,
+  selectors = { year: "2024" }
+) {
+  const { year } = selectors; // Destructure year from selectors
+  // Step 1: Return an empty array if the input data is not an array
+  if (!Array.isArray(csvData)) return [];
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+  return days.map((day) => {
+    const count = csvData.filter(
+      (row) =>
+        row.Year &&
+        row.Year.trim() === String(year) &&
+        row["Day"] &&
+        row["Day"].trim() === day
+    ).length;
+    return { day, count };
+  });
 }
