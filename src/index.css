@@ -117,14 +117,30 @@ body {
 }
 
 .card-title {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #f7fafc;
+  margin-bottom: 0.7rem
 }
 
 .card-text {
-  font-size: 2rem;
+  margin-top: 0.5rem;
+  /* color: #cbd5e0; */
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.card-label {
+  font-size: 1.5rem;
+  color: #f7fafc;
+  #a3a3a3 font-weight: 500;
+}
+
+.card-count {
+  font-size: 1.5rem;
+  color: #fbbf24;
   font-weight: bold;
-  color: #cbd5e0;
+  margin-left: 0.5rem;
 }
 
 .selectBtn {

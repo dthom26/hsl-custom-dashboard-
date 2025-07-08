@@ -70,7 +70,7 @@ function HslGateCount() {
       </section>
       <section className="container-for-graphs">
         <GraphLogicCompoenet
-          title={"Question Count By Day of The Week"}
+          title={"Most Asked Question (by Year & Month)"}
           csvData={csvData}
           calfunction={QuestionCountByDayOfTheWeek}
           yearOptions={yearOptions}
