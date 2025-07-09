@@ -163,6 +163,10 @@ body {
   .container-for-graphs {
     padding: 0.25rem;
   }
+
+  .graph-ui-component {
+    padding: 0;
+  }
 }
 
 

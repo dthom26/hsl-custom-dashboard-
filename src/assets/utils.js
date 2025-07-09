@@ -107,7 +107,9 @@ export function avgVistsByDay(csvData, selectors) {
       row.Month &&
       row.Month.trim() === String(month)
   );
+  console.log(filteredData);
   const convertVisitsToNum = filteredData.map((row) => Number(row.Visits));
+  console.log(convertVisitsToNum); // See what numbers you get
   const numberOfDaysForTheMonth = convertVisitsToNum.length;
   const sumNums = convertVisitsToNum.reduce((sum, visits) => sum + visits, 0);
   const avg = Math.round(sumNums / numberOfDaysForTheMonth);
