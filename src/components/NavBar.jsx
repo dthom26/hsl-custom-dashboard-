@@ -1,4 +1,4 @@
-import { BarChart2, Menu, User } from "lucide-react";
+import { BarChart2, Menu, User, ClipboardList } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -10,8 +10,8 @@ const SIDEBAR_ITEMS = [
     href: "/",
   },
   {
-    name: "HSL Question Sheet Data",
-    icon: User,
+    name: "HSL Question Sheet Stats",
+    icon: ClipboardList,
     color: "#8B5CF6",
     href: "/hslquestionsheet",
   },
@@ -22,8 +22,8 @@ const SIDEBAR_ITEMS = [
     href: "/medgatecount",
   },
   {
-    name: "MED Question Sheet Data",
-    icon: BarChart2,
+    name: "MED Question Sheet Stats",
+    icon: ClipboardList,
     color: "#EC4899",
     href: "/medquestionsheet",
   },
@@ -33,29 +33,56 @@ const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className={`sidebar ${!isSidebarOpen ? "collapsed" : ""}`}>
-      <div className="sidebar-inner">
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="menu-button"
-        >
-          <Menu size={24} />
-        </button>
-
-        <nav className="nav">
-          {SIDEBAR_ITEMS.map((item) => (
-            <Link to={item.href} key={item.name} className="nav-item">
-              <item.icon
-                size={20}
-                style={{ color: item.color }}
-                className="nav-icon"
-              />
-              <span className="nav-text">{item.name}</span>
-            </Link>
-          ))}
-        </nav>
+    <>
+      {/* Hamburger menu button always visible on mobile */}
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="menu-button mobile-only"
+        aria-label="Open sidebar menu"
+        style={{ position: "fixed", left: 16, top: 16, zIndex: 1100 }}
+      >
+        <Menu size={24} />
+      </button>
+      {/* Overlay for mobile */}
+      {isSidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+      <div
+        className={`sidebar${isSidebarOpen ? " open" : " collapsed"}`}
+        style={{ display: isSidebarOpen ? undefined : undefined }}
+      >
+        <div className="sidebar-inner">
+          {/* Hide menu button inside sidebar on mobile */}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="menu-button desktop-only"
+            aria-label="Close sidebar menu"
+          >
+            <Menu size={24} />
+          </button>
+          <nav className="nav">
+            {SIDEBAR_ITEMS.map((item) => (
+              <Link
+                to={item.href}
+                key={item.name}
+                className="nav-item"
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                <item.icon
+                  size={20}
+                  style={{ color: item.color }}
+                  className="nav-icon"
+                />
+                <span className="nav-text">{item.name}</span>
+              </Link>
+            ))}
+          </nav>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

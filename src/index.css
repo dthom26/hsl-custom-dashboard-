@@ -366,3 +366,141 @@ body {
   color: #6EE7B7;
   /* Settings */
 }
+
+@media (max-width: 600px) {
+  /* Sidebar nav text size fix */
+  .nav-text {
+    font-size: 0.95rem;
+  }
+  /* Card and chart improvements for mobile */
+  .card-container {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  .card-title {
+    font-size: 1rem;
+  }
+  .card-label,
+  .card-count {
+    font-size: 1.1rem;
+  }
+  .card-text {
+    gap: 0.3rem;
+  }
+  .graph-ui-component {
+    padding: 0.5rem;
+    min-height: 180px;
+  }
+  .selectBtn,
+  .selectBtn-graph {
+    font-size: 0.95rem;
+    padding: 0.3rem 0.7rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-title {
+    font-size: 0.9rem;
+  }
+  .card-label,
+  .card-count {
+    font-size: 0.95rem;
+  }
+  .graph-ui-component {
+    padding: 0.2rem;
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 220px;
+    z-index: 1000;
+    background: rgba(31, 41, 55, 0.98);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-inner {
+    border-right: none;
+    border-bottom: 1px solid #374151;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .sidebar.collapsed {
+    width: 0;
+    min-width: 0;
+  }
+
+  .nav-text {
+    display: inline;
+    font-size: 1.1rem;
+  }
+
+  .menu-button {
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    z-index: 1100;
+    background: #222;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+  }
+}
+
+/* Utility classes for responsive menu button */
+.mobile-only {
+  display: none;
+}
+
+.desktop-only {
+  display: inline-flex;
+}
+
+@media (max-width: 600px) {
+  .mobile-only {
+    display: inline-flex !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar.open {
+    display: block;
+    transform: translateX(0);
+  }
+
+  .nav-text {
+    font-size: 0.55rem;
+    /* Reduce font size for mobile */
+  }
+}

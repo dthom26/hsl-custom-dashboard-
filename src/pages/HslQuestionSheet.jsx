@@ -53,7 +53,7 @@ function HslGateCount() {
     <div className="page-container">
       <section className="container-for-cards">
         <CardLogic
-          title={"Most Asked Question (by Year & Month)"}
+          title={"Most Common Question Category (Year & Month)"}
           csvData={csvData}
           calfunction={getQuestionTotalByDate} // pass a function as the prop so we can reuse the component with other cal functions.
           selectorConfigs={yearAndMonthSelectors}
@@ -65,7 +65,7 @@ function HslGateCount() {
           selectorConfigs={timeSlotSelector}
         />
         <CardLogic
-          title={"Most Asked Question"}
+          title={"Top Question Category (All Time)"}
           csvData={csvData}
           calfunction={getMostAskedQuestionOverAll}
           selectorConfigs={[]}
