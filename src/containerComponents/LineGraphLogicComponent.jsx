@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import LineGraph from "../components/LineGraph";
 
-function LineGraphLogicCompoenet({ title, calfunction, csvData }) {
+function LineGraphLogicComponent({ title, calfunction, csvData }) {
   // const [selectedYear, setSelectedYear] = useState("2024"); // state for selected year
   // You can add more state variables for month or other selectors if needed.
 
@@ -23,4 +23,4 @@ function LineGraphLogicCompoenet({ title, calfunction, csvData }) {
   );
 }
 
-export default LineGraphLogicCompoenet;
+export default LineGraphLogicComponent;
