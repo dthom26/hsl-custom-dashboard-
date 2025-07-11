@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CardLogic from "../containerComponents/CardLogic";
 import GraphLogicCompoenet from "../containerComponents/GraphLogicCompoenet";
-import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
+import LineGraphLogicCompoenet from "../containerComponents/LineGraphLogicComponent";
 import {
   fetchCSVData,
   getYearTotal,
@@ -81,7 +81,7 @@ function MedGateCount() {
           calfunction={avgVisitsByDayOfTheWeek}
           yearOptions={yearOptions}
         />
-        <LineGraphLogicComponent
+        <LineGraphLogicCompoenet
           title={"Trend Line For Visits By Year"}
           csvData={csvData}
           calfunction={getYearsAndTotals}

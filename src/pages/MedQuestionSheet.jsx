@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CardLogic from "../containerComponents/CardLogic";
 import GraphLogicCompoenet from "../containerComponents/GraphLogicCompoenet";
+import PieChartLogicComponent from "../containerComponents/PieChartLogicComponent";
 import {
   fetchCSVData,
   getUniqueOptions,
@@ -10,6 +11,7 @@ import {
   getMostAskedQuestionOverAll,
   QuestionCountByDayOfTheWeek,
   QuestionCountByTimeSlot,
+  getCategoryTotals,
 } from "../assets/utils";
 function HslGateCount() {
   const csvURL =
@@ -80,6 +82,11 @@ function HslGateCount() {
           csvData={csvData}
           calfunction={QuestionCountByTimeSlot}
           yearOptions={yearOptions}
+        />
+        <PieChartLogicComponent
+          title={"Totals for Each Category"}
+          csvData={csvData}
+          calfunction={getCategoryTotals}
         />
       </section>
     </div>

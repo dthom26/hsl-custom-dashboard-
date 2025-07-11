@@ -10,7 +10,9 @@ import {
   getMostAskedQuestionOverAll,
   QuestionCountByDayOfTheWeek,
   QuestionCountByTimeSlot,
+  getCategoryTotals,
 } from "../assets/utils";
+import PieChartLogicComponent from "../containerComponents/PieChartLogicComponent";
 function HslGateCount() {
   const csvURLHslQuestionSheetData =
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vQWRfABt-CD3hOE4JEDfyRznx6MoRrnq1i97bN2SVd-Wu0lQ5E6YQVl3fIQ1vtin_ne2Lk_KOhFfP4t/pub?output=csv";
@@ -83,6 +85,11 @@ function HslGateCount() {
           csvData={csvData}
           calfunction={QuestionCountByTimeSlot}
           yearOptions={yearOptions}
+        />
+        <PieChartLogicComponent
+          title={"Totals for Each Category"}
+          csvData={csvData}
+          calfunction={getCategoryTotals}
         />
       </section>
     </div>

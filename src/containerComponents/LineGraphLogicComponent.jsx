@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import LineGraph from "../components/LineGraph";
 
-function GraphLogicCompoenet({ title, calfunction, csvData }) {
+function LineGraphLogicCompoenet({ title, calfunction, csvData }) {
   // const [selectedYear, setSelectedYear] = useState("2024"); // state for selected year
   // You can add more state variables for month or other selectors if needed.
 
@@ -19,22 +19,8 @@ function GraphLogicCompoenet({ title, calfunction, csvData }) {
   return (
     <div className="graph-ui-component">
       <LineGraph title={title} labels={labels} data={data} />
-      {/* <select
-        onChange={handleYearChange}
-        name="year"
-        id="year"
-        defaultValue={"2024"}
-      >
-        <option value="2025">2025</option>
-        <option value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-        <option value="2020">2020</option>
-        <option value="2019">2019</option>
-      </select> */}
     </div>
   );
 }
 
-export default GraphLogicCompoenet;
+export default LineGraphLogicCompoenet;

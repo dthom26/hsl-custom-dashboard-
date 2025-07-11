@@ -107,9 +107,9 @@ export function avgVistsByDay(csvData, selectors) {
       row.Month &&
       row.Month.trim() === String(month)
   );
-  console.log(filteredData);
+  // console.log(filteredData);
   const convertVisitsToNum = filteredData.map((row) => Number(row.Visits));
-  console.log(convertVisitsToNum); // See what numbers you get
+  // console.log(convertVisitsToNum); // See what numbers you get
   const numberOfDaysForTheMonth = convertVisitsToNum.length;
   const sumNums = convertVisitsToNum.reduce((sum, visits) => sum + visits, 0);
   const avg = Math.round(sumNums / numberOfDaysForTheMonth);
@@ -233,6 +233,7 @@ export function getYearsAndTotals(csvData) {
   return yearTotals;
 }
 
+//////////////////////////////////////////////////////////////////////
 // Function to get unique options for a given key from the CSV data
 export function getUniqueOptions(csvData, key) {
   return [
@@ -241,6 +242,8 @@ export function getUniqueOptions(csvData, key) {
     ),
   ];
 }
+
+/////////////////////////////////
 
 /**
  * The utility functions found below will be for the Question Sheet Pages for both MED and HSL.
@@ -373,5 +376,17 @@ export function QuestionCountByTimeSlot(csvData, selectors = { year: "2024" }) {
         row["Time Slot"].trim() === day
     ).length;
     return { day, count };
+  });
+}
+/////////////////////////////
+// Function for getting category totals for the PieChart
+export function getCategoryTotals(csvData) {
+  if (!Array.isArray(csvData)) return [];
+  const categorys = getUniqueOptions(csvData, "Question Category");
+  return categorys.map((category) => {
+    const count = csvData.filter(
+      (row) => row["Question Category"] === category
+    ).length;
+    return { category, count };
   });
 }

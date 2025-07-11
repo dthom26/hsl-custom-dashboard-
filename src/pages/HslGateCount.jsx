@@ -12,7 +12,7 @@ import {
   getUniqueOptions,
 } from "../assets/utils";
 
-import LineGraphLogicComponent from "../containerComponents/LineGraphLogicComponent";
+import LineGraphLogicCompoenet from "../containerComponents/LineGraphLogicComponent";
 
 function HslGateCount() {
   const csvURLHslGateCount =
@@ -84,7 +84,7 @@ function HslGateCount() {
           calfunction={avgVisitsByDayOfTheWeek}
           yearOptions={yearOptions}
         />
-        <LineGraphLogicComponent
+        <LineGraphLogicCompoenet
           title={"Trend Line For Visits By Year"}
           csvData={csvData}
           calfunction={getYearsAndTotals}
